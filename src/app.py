@@ -57,8 +57,8 @@ with engine.connect() as connection:
     """))
 
 # 3) Insertar los datos en las tablas
-with Session(engine) as session:
-    session.execute(text("""
+
+    connection.execute(text("""
         INSERT INTO publishers(publisher_id, name) VALUES (1, 'O Reilly Media');
         INSERT INTO publishers(publisher_id, name) VALUES (2, 'A Book Apart');
         INSERT INTO publishers(publisher_id, name) VALUES (3, 'A K PETERS');
@@ -99,8 +99,11 @@ with Session(engine) as session:
         INSERT INTO book_authors (book_id, author_id) VALUES (10, 1);
     """))
     
-    session.commit()
+
+    connection.commit()
+
+
 
 # 4) Usar pandas para leer y mostrar una tabla como DataFrame
-result_dataFrame = pd.read_sql("SELECT * FROM publishers;", con=engine)
+result_dataFrame = pd.read_sql("SELECT * FROM books;", con=engine)
 print(result_dataFrame)
